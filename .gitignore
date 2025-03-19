@@ -1,4 +1,6 @@
 Build/
+.vscode/
+*.sln
 *.exe
 *.o
 *.so

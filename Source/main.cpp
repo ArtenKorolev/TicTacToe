@@ -1,5 +1,9 @@
 #include <iostream>
+#include "Game.hpp"
+
 
 int main(int, char**){
-    std::cout << "Hello, from tic_tac_toe!\n";
+    Game game;
+    int exitCode = game.run();
+    return exitCode;
 }
