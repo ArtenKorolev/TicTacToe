@@ -2,7 +2,7 @@
 
 
 Core::Core() 
-    : _field(Field())
+    : _field(FieldInteractor(Field()))
 {}
 
 void Core::userStep(int x, int y) {
@@ -22,13 +22,9 @@ void Core::computerStep() {
 }
 
 bool Core::checkWinPosition() {
-    return false; // TODO: implement this method
+    return _field.checkWinPosition();
 }
 
 bool Core::checkDrawPosition() {
-    if (checkWinPosition()) {
-        return false;
-    }
-
-    return _field.getEmptyCells().empty();
+   return _field.checkDrawPosition();
 }

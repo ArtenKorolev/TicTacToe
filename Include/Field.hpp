@@ -11,14 +11,26 @@
 class Field {
 public:
     Field() = default;
-    void setCross(int x, int y);
-    void setZero(int x, int y);
+    Cell &getCellByCoordinates(int x, int y);
+    std::array<Cell, FIELD_SIZE> &getEntireField();
     std::vector<std::pair<int, int>> getEmptyCells();
-    CellState getCellState(int x, int y); 
 private:
-    Cell &_getCellByCoordinates(int x, int y);
     void _validateCoordinatesToSetValue(int x, int y);
     std::array<Cell, FIELD_SIZE> _field;
+};
+
+
+class FieldInteractor {
+public:
+    FieldInteractor(Field &field);
+    FieldInteractor(Field &&field);
+    void setZero(int x, int y);
+    void setCross(int x, int y);
+    bool checkWinPosition();
+    bool checkDrawPosition();
+    std::vector<std::pair<int, int>> getEmptyCells();
+private:
+    Field _field;
 };
 
 

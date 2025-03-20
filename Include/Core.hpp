@@ -14,7 +14,7 @@ public:
     bool checkWinPosition();
     bool checkDrawPosition();
 private:
-    Field _field;
+    FieldInteractor _field;
 };
 
 
