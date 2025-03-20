@@ -3,6 +3,7 @@
 
 #include <array>
 #include <vector>
+#include <stdexcept>
 #include "Constants.hpp"
 #include "Cell.hpp"
 
@@ -16,6 +17,7 @@ public:
     CellState getCellState(int x, int y); 
 private:
     Cell &_getCellByCoordinates(int x, int y);
+    void _validateCoordinatesToSetValue(int x, int y);
     std::array<Cell, FIELD_SIZE> _field;
 };
 

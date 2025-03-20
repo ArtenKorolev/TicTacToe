@@ -6,6 +6,12 @@ Game::Game(std::unique_ptr<InputOutputSystem> ioSystem)
 {}
 
 int Game::run() {
-    _io->gameLoop();
+    try {
+        _io->gameLoop();
+    }
+    catch (const std::exception &e) {
+        return 1;
+    }
+    
     return 0;
 }

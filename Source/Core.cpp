@@ -16,14 +16,19 @@ void Core::computerStep() {
         throw std::runtime_error("Нет пустых клеток");
     }
 
-    auto randomCell = emptyCells[utils::getRandomNumberBetween(0, emptyCells.size() - 1)];
+    int randomIndex = utils::getRandomNumberBetween(0, emptyCells.size() - 1);
+    auto randomCell = emptyCells[randomIndex];
     _field.setZero(randomCell.first, randomCell.second);
 }
 
 bool Core::checkWinPosition() {
-    return false;
+    return false; // TODO: implement this method
 }
 
 bool Core::checkDrawPosition() {
-    return false;
+    if (checkWinPosition()) {
+        return false;
+    }
+
+    return _field.getEmptyCells().empty();
 }
