@@ -31,19 +31,32 @@ void ConsoleInterface::gameLoop() {
 }
 
 void ConsoleInterface::_printField() {
+    std::cout << "   ";
+    for (int j = 0; j < FIELD_WIDTH; ++j) {
+        std::cout << " " << j + 1 << "  ";
+    }
+    std::cout << '\n';
+
     for (int i = 0; i < FIELD_HEIGHT; ++i) {
+        std::cout << "   ";
+        for (int j = 0; j < FIELD_WIDTH; ++j) {
+            std::cout << "+---";
+        }
+        std::cout << "+\n";
+
+        std::cout << " " << i + 1 << " ";
         for (int j = 0; j < FIELD_WIDTH; ++j) {
             auto cell = _field.getCellByCoordinates(Coordinates{j, i});
-            std::cout << _getCellCharByState(cell.state);
-            if (j < FIELD_WIDTH - 1) {
-                std::cout << "|";
-            }
+            std::cout << "| " << _getCellCharByState(cell.state) << " ";
         }
-        std::cout << '\n';
-        if (i < FIELD_HEIGHT - 1) {
-            std::cout << "-----\n";
-        }
+        std::cout << "|\n";
     }
+
+    std::cout << "   ";
+    for (int j = 0; j < FIELD_WIDTH; ++j) {
+        std::cout << "+---";
+    }
+    std::cout << "+\n";
 }
 
 std::string ConsoleInterface::_getCellCharByState(CellState state) {
@@ -60,7 +73,7 @@ std::string ConsoleInterface::_getCellCharByState(CellState state) {
 void ConsoleInterface::_userStep() {
     int x, y;
     std::cout << "Введите координаты клетки на которую хотите походить (y x): ";
-    
+
     while (true) {
         std::cin >> y >> x;
         try {

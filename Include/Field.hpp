@@ -33,6 +33,7 @@ public:
     bool checkDrawPosition();
     std::vector<Coordinates> getEmptyCellsCoordinates();
     Cell getCellByCoordinates(Coordinates coordinates);
+    bool isCellEmpty(Coordinates coordinates);
 private:
     Field &_field;
 };

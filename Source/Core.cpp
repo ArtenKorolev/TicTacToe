@@ -6,6 +6,10 @@ Core::Core(FieldInteractor &field)
 {}
 
 void Core::userStep(Coordinates coordinates) {
+    if (!_field.isCellEmpty(coordinates)) {
+        throw std::runtime_error("Клетка уже занята");
+    }
+
     _field.setCross(coordinates);
 }
 
