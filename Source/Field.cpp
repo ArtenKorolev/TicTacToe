@@ -84,3 +84,7 @@ bool FieldInteractor::checkDrawPosition() {
 std::vector<Coordinates> FieldInteractor::getEmptyCellsCoordinates() {
     return std::move(_field.getEmptyCellsCoordinates());
 }
+
+Cell FieldInteractor::getCellByCoordinates(Coordinates coordinates) {
+    return _field.getCellByCoordinates(coordinates);
+}

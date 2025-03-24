@@ -32,6 +32,7 @@ public:
     bool checkWinPosition();
     bool checkDrawPosition();
     std::vector<Coordinates> getEmptyCellsCoordinates();
+    Cell getCellByCoordinates(Coordinates coordinates);
 private:
     Field &_field;
 };
