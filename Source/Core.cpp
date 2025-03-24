@@ -5,20 +5,20 @@ Core::Core()
     : _field(FieldInteractor(Field()))
 {}
 
-void Core::userStep(int x, int y) {
-    _field.setCross(x, y);
+void Core::userStep(Coordinates coordinates) {
+    _field.setCross(coordinates);
 }
 
 void Core::computerStep() {
-    auto emptyCells = _field.getEmptyCells();
+    auto emptyCells = _field.getEmptyCellsCoordinates();
 
     if (emptyCells.empty()) {
         throw std::runtime_error("Нет пустых клеток");
     }
 
     int randomIndex = utils::getRandomNumberBetween(0, emptyCells.size() - 1);
-    auto randomCell = emptyCells[randomIndex];
-    _field.setZero(randomCell.first, randomCell.second);
+    auto randomCellCoordinates = emptyCells[randomIndex];
+    _field.setZero(randomCellCoordinates);
 }
 
 bool Core::checkWinPosition() {

@@ -9,7 +9,7 @@
 class Core {
 public:
     Core();
-    void userStep(int x, int y);
+    void userStep(Coordinates coordinates);
     void computerStep();
     bool checkWinPosition();
     bool checkDrawPosition();

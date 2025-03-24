@@ -8,14 +8,18 @@
 #include "Cell.hpp"
 
 
+struct Coordinates {
+    int x, y;
+};
+
+
 class Field {
 public:
     Field() = default;
-    Cell &getCellByCoordinates(int x, int y);
-    std::array<Cell, FIELD_SIZE> &getEntireField();
-    std::vector<std::pair<int, int>> getEmptyCells();
+    Cell &getCellByCoordinates(Coordinates coordinates);
+    std::vector<Coordinates> getEmptyCellsCoordinates();
 private:
-    void _validateCoordinatesToSetValue(int x, int y);
+    void _validateCoordinatesToSetValue(Coordinates coordinates);
     std::array<Cell, FIELD_SIZE> _field;
 };
 
@@ -24,11 +28,11 @@ class FieldInteractor {
 public:
     FieldInteractor(Field &field);
     FieldInteractor(Field &&field);
-    void setZero(int x, int y);
-    void setCross(int x, int y);
+    void setZero(Coordinates coordinates);
+    void setCross(Coordinates coordinates);
     bool checkWinPosition();
     bool checkDrawPosition();
-    std::vector<std::pair<int, int>> getEmptyCells();
+    std::vector<Coordinates> getEmptyCellsCoordinates();
 private:
     Field _field;
 };
