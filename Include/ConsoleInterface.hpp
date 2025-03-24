@@ -12,6 +12,7 @@ public:
     void gameLoop() override;
 private:
     void _printField();
+    std::string _getCellCharByState(CellState state);
     void _userStep();
     Core _core;
 };

@@ -26,32 +26,49 @@ void ConsoleInterface::gameLoop() {
             break;
         }
     }
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.get();
 }
 
 void ConsoleInterface::_printField() {
     for (int i = 0; i < FIELD_HEIGHT; ++i) {
         for (int j = 0; j < FIELD_WIDTH; ++j) {
             auto cell = _field.getCellByCoordinates(Coordinates{j, i});
-            switch (cell.state) {
-                case CellState::EMPTY:
-                    std::cout << " ";
-                    break;
-                case CellState::ZERO:
-                    std::cout << "O";
-                    break;
-                case CellState::CROSS:
-                    std::cout << "X";
-                    break;
+            std::cout << _getCellCharByState(cell.state);
+            if (j < FIELD_WIDTH - 1) {
+                std::cout << "|";
             }
-            std::cout << " ";
         }
-        std::cout << std::endl;
+        std::cout << '\n';
+        if (i < FIELD_HEIGHT - 1) {
+            std::cout << "-----\n";
+        }
+    }
+}
+
+std::string ConsoleInterface::_getCellCharByState(CellState state) {
+    switch (state) {
+        case CellState::EMPTY:
+            return " ";
+        case CellState::ZERO:
+            return "O";
+        case CellState::CROSS:
+            return "X";
     }
 }
 
 void ConsoleInterface::_userStep() {
     int x, y;
-    std::cout << "Введите координаты клетки на которую хотите походить: ";
-    std::cin >> x >> y;
-    _core.userStep(Coordinates{x, y});
+    std::cout << "Введите координаты клетки на которую хотите походить (y x): ";
+    
+    while (true) {
+        std::cin >> y >> x;
+        try {
+            _core.userStep(Coordinates{x - 1, y - 1});
+            break;
+        }
+        catch (const std::exception &e) {
+            std::cout << e.what() << ". Попробуйте снова: ";
+        }
+    }
 }

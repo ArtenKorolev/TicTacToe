@@ -10,9 +10,6 @@ void Field::_validateCoordinatesToSetValue(Coordinates coordinates) {
     if (coordinates.x < 0 || coordinates.x >= FIELD_WIDTH || coordinates.y < 0 || coordinates.y >= FIELD_HEIGHT) {
         throw std::out_of_range("Неверная позиция клетки");
     }
-    if (getCellByCoordinates(coordinates).state != CellState::EMPTY) {
-        throw std::invalid_argument("Клетка занята");
-    }
 }
 
 std::vector<Coordinates> Field::getEmptyCellsCoordinates() {
