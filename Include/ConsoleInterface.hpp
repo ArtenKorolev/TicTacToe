@@ -1,8 +1,8 @@
 #ifndef CONSOLEINTERFACE_HPP
 #define CONSOLEINTERFACE_HPP
 
-
 #include "IOInterface.hpp"
+#include "Constants.hpp"
 #include <iostream>
 
 

@@ -29,7 +29,24 @@ void ConsoleInterface::gameLoop() {
 }
 
 void ConsoleInterface::_printField() {
-    // pass
+    for (int i = 0; i < FIELD_HEIGHT; ++i) {
+        for (int j = 0; j < FIELD_WIDTH; ++j) {
+            auto cell = _field.getCellByCoordinates(Coordinates{j, i});
+            switch (cell.state) {
+                case CellState::EMPTY:
+                    std::cout << " ";
+                    break;
+                case CellState::ZERO:
+                    std::cout << "O";
+                    break;
+                case CellState::CROSS:
+                    std::cout << "X";
+                    break;
+            }
+            std::cout << " ";
+        }
+        std::cout << std::endl;
+    }
 }
 
 void ConsoleInterface::_userStep() {
