@@ -27,14 +27,13 @@ private:
 class FieldInteractor {
 public:
     FieldInteractor(Field &field);
-    FieldInteractor(Field &&field);
     void setZero(Coordinates coordinates);
     void setCross(Coordinates coordinates);
     bool checkWinPosition();
     bool checkDrawPosition();
     std::vector<Coordinates> getEmptyCellsCoordinates();
 private:
-    Field _field;
+    Field &_field;
 };
 
 

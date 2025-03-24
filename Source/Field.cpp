@@ -33,10 +33,6 @@ FieldInteractor::FieldInteractor(Field &field)
     : _field(field)
 {}
 
-FieldInteractor::FieldInteractor(Field &&field)
-    : _field(std::move(field))
-{}
-
 void FieldInteractor::setZero(Coordinates coordinates) {
     _field.getCellByCoordinates(coordinates).state = CellState::ZERO;
 }

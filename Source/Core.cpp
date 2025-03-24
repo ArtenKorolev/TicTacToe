@@ -1,8 +1,8 @@
 #include "Core.hpp"
 
 
-Core::Core() 
-    : _field(FieldInteractor(Field()))
+Core::Core(FieldInteractor &field) 
+    : _field(field)
 {}
 
 void Core::userStep(Coordinates coordinates) {

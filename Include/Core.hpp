@@ -8,13 +8,13 @@
 
 class Core {
 public:
-    Core();
+    Core(FieldInteractor &field);
     void userStep(Coordinates coordinates);
     void computerStep();
     bool checkWinPosition();
     bool checkDrawPosition();
 private:
-    FieldInteractor _field;
+    FieldInteractor &_field;
 };
 
 
