@@ -4,6 +4,7 @@
 #include <array>
 #include <vector>
 #include <stdexcept>
+#include <algorithm>
 #include "Constants.hpp"
 #include "Cell.hpp"
 

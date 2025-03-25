@@ -39,53 +39,68 @@ void FieldInteractor::setCross(Coordinates coordinates) {
 }
 
 bool FieldInteractor::checkWinPosition() {
-    auto checkLine = [&](std::vector<Coordinates> line) {
-        CellState firstState = _field.getCellByCoordinates(line[0]).state;
-        if (firstState == CellState::EMPTY) {
-            return false;
-        }
-        for (const auto &coord : line) {
-            if (_field.getCellByCoordinates(coord).state != firstState) {
-                return false;
+    // Проверка строк
+    for (int y = 0; y < FIELD_HEIGHT; ++y) {
+        CellState firstCellState = _field.getCellByCoordinates({0, y}).state;
+        if (firstCellState != CellState::EMPTY) {
+            bool rowWin = true;
+            for (int x = 1; x < FIELD_WIDTH; ++x) {
+                if (_field.getCellByCoordinates({x, y}).state != firstCellState) {
+                    rowWin = false;
+                    break;
+                }
+            }
+            if (rowWin) {
+                return true;
             }
         }
-        return true;
-    };
-
-    for (int y = 0; y < FIELD_HEIGHT; ++y) {
-        std::vector<Coordinates> row;
-        for (int x = 0; x < FIELD_WIDTH; ++x) {
-            row.push_back(Coordinates{x, y});
-        }
-        if (checkLine(row)) {
-            return true;
-        }
     }
 
+    // Проверка столбцов
     for (int x = 0; x < FIELD_WIDTH; ++x) {
-        std::vector<Coordinates> column;
-        for (int y = 0; y < FIELD_HEIGHT; ++y) {
-            column.push_back(Coordinates{x, y});
+        CellState firstCellState = _field.getCellByCoordinates({x, 0}).state;
+        if (firstCellState != CellState::EMPTY) {
+            bool colWin = true;
+            for (int y = 1; y < FIELD_HEIGHT; ++y) {
+                if (_field.getCellByCoordinates({x, y}).state != firstCellState) {
+                    colWin = false;
+                    break;
+                }
+            }
+            if (colWin) {
+                return true;
+            }
         }
-        if (checkLine(column)) {
+    }
+
+    // Проверка главной диагонали
+    CellState firstDiagonalState = _field.getCellByCoordinates({0, 0}).state;
+    if (firstDiagonalState != CellState::EMPTY) {
+        bool diagonalWin = true;
+        for (int i = 1; i < std::min(FIELD_WIDTH, FIELD_HEIGHT); ++i) {
+            if (_field.getCellByCoordinates({i, i}).state != firstDiagonalState) {
+                diagonalWin = false;
+                break;
+            }
+        }
+        if (diagonalWin) {
             return true;
         }
     }
 
-    std::vector<Coordinates> mainDiagonal;
-    for (int i = 0; i < std::min(FIELD_WIDTH, FIELD_HEIGHT); ++i) {
-        mainDiagonal.push_back(Coordinates{i, i});
-    }
-    if (checkLine(mainDiagonal)) {
-        return true;
-    }
-
-    std::vector<Coordinates> antiDiagonal;
-    for (int i = 0; i < std::min(FIELD_WIDTH, FIELD_HEIGHT); ++i) {
-        antiDiagonal.push_back(Coordinates{i, FIELD_HEIGHT - 1 - i});
-    }
-    if (checkLine(antiDiagonal)) {
-        return true;
+    // Проверка побочной диагонали
+    CellState secondDiagonalState = _field.getCellByCoordinates({0, FIELD_HEIGHT - 1}).state;
+    if (secondDiagonalState != CellState::EMPTY) {
+        bool diagonalWin = true;
+        for (int i = 1; i < std::min(FIELD_WIDTH, FIELD_HEIGHT); ++i) {
+            if (_field.getCellByCoordinates({i, FIELD_HEIGHT - 1 - i}).state != secondDiagonalState) {
+                diagonalWin = false;
+                break;
+            }
+        }
+        if (diagonalWin) {
+            return true;
+        }
     }
 
     return false;
