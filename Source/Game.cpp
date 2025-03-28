@@ -9,8 +9,7 @@ int Game::run() {
         interface->gameLoop();
     }
     catch (const std::exception &e) {
-        FileLogger errorsLogger(File{"errors.txt", "./"});
-        errorsLogger.log(e.what());
+        ERROR_FILE_LOGGER.log(e.what());
         return 1;
     }
 
