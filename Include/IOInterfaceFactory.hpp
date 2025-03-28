@@ -3,6 +3,7 @@
 
 #include <memory>
 #include "IOInterface.hpp"
+#include "SFMLInterface.hpp"
 
 
 class IOInterfaceFactory {
