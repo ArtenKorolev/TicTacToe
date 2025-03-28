@@ -3,7 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include "chrono"
 #include "Constants.hpp"
+#include "Globals.hpp"
 #include "IOInterface.hpp"
 #include "Bot.hpp"
 
@@ -14,11 +16,12 @@ public:
     ~SFMLInterface() override = default;
     void gameLoop() override;
 private:
+    void _handleEvents(sf::RenderWindow &window);
     void _drawField(sf::RenderWindow &window);
     void _drawCell(sf::RenderWindow &window, int x, int y);
     Core _core;
+    bool _playerCanMove = true;
     Bot _bot;
-    sf::Font _font = sf::Font();
 };
 
 
