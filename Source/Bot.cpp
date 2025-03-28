@@ -10,6 +10,6 @@ void Bot::makeStep(FieldInteractor &field) {
 
     int randomIndex = utils::getRandomNumberBetween(0, static_cast<int>(emptyCells.size()) - 1);
     Coordinates randomCell = emptyCells[randomIndex];
-    
-    field.setCross(randomCell);
+
+    field.setZero(randomCell);
 }
