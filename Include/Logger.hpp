@@ -9,7 +9,7 @@
 class FileLogger {
 public:
     FileLogger(const File &logFile);
-    void log(const std::string &message);
+    void log(const std::string &message) const;
 private:
     const File _logFile;
 };
@@ -17,10 +17,7 @@ private:
 
 class ConsoleLogger {
 public:
-    ConsoleLogger(const File &logFile);
-    void log(const std::string &message);
-private:
-    const File _logFile;
+    void log(const std::string &message) const;
 };
 
 
