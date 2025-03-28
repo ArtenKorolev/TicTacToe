@@ -36,6 +36,12 @@ public:
     Cell getCellByCoordinates(Coordinates coordinates);
     bool isCellEmpty(Coordinates coordinates);
 private:
+    bool _checkRowsForWin();
+    bool _checkColumnsForWin();
+    bool _checkMainDiagonalForWin();
+    bool _checkSecondaryDiagonalForWin();
+    bool _isRowWinning(int y);
+    bool _isColumnWinning(int x);
     Field &_field;
 };
 

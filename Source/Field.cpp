@@ -39,71 +39,87 @@ void FieldInteractor::setCross(Coordinates coordinates) {
 }
 
 bool FieldInteractor::checkWinPosition() {
-    // Проверка строк
+    return _checkRowsForWin() || _checkColumnsForWin() || _checkMainDiagonalForWin() || _checkSecondaryDiagonalForWin();
+}
+
+bool FieldInteractor::_checkRowsForWin() {
     for (int y = 0; y < FIELD_HEIGHT; ++y) {
-        CellState firstCellState = _field.getCellByCoordinates({0, y}).state;
-        if (firstCellState != CellState::EMPTY) {
-            bool rowWin = true;
-            for (int x = 1; x < FIELD_WIDTH; ++x) {
-                if (_field.getCellByCoordinates({x, y}).state != firstCellState) {
-                    rowWin = false;
-                    break;
-                }
-            }
-            if (rowWin) {
-                return true;
-            }
-        }
-    }
-
-    // Проверка столбцов
-    for (int x = 0; x < FIELD_WIDTH; ++x) {
-        CellState firstCellState = _field.getCellByCoordinates({x, 0}).state;
-        if (firstCellState != CellState::EMPTY) {
-            bool colWin = true;
-            for (int y = 1; y < FIELD_HEIGHT; ++y) {
-                if (_field.getCellByCoordinates({x, y}).state != firstCellState) {
-                    colWin = false;
-                    break;
-                }
-            }
-            if (colWin) {
-                return true;
-            }
-        }
-    }
-
-    // Проверка главной диагонали
-    CellState firstDiagonalState = _field.getCellByCoordinates({0, 0}).state;
-    if (firstDiagonalState != CellState::EMPTY) {
-        bool diagonalWin = true;
-        for (int i = 1; i < std::min(FIELD_WIDTH, FIELD_HEIGHT); ++i) {
-            if (_field.getCellByCoordinates({i, i}).state != firstDiagonalState) {
-                diagonalWin = false;
-                break;
-            }
-        }
-        if (diagonalWin) {
+        if (_isRowWinning(y)) {
             return true;
         }
     }
+    
+    return false;
+}
 
-    // Проверка побочной диагонали
-    CellState secondDiagonalState = _field.getCellByCoordinates({0, FIELD_HEIGHT - 1}).state;
-    if (secondDiagonalState != CellState::EMPTY) {
-        bool diagonalWin = true;
-        for (int i = 1; i < std::min(FIELD_WIDTH, FIELD_HEIGHT); ++i) {
-            if (_field.getCellByCoordinates({i, FIELD_HEIGHT - 1 - i}).state != secondDiagonalState) {
-                diagonalWin = false;
-                break;
-            }
+bool FieldInteractor::_isRowWinning(int y) {
+    CellState firstCellState = _field.getCellByCoordinates({0, y}).state;
+    if (firstCellState == CellState::EMPTY) {
+        return false;
+    }
+
+    for (int x = 1; x < FIELD_WIDTH; ++x) {
+        if (_field.getCellByCoordinates({x, y}).state != firstCellState) {
+            return false;
         }
-        if (diagonalWin) {
+    }
+
+    return true;
+}
+
+bool FieldInteractor::_checkColumnsForWin() {
+    for (int x = 0; x < FIELD_WIDTH; ++x) {
+        if (_isColumnWinning(x)) {
             return true;
         }
     }
 
     return false;
+}
+
+bool FieldInteractor::_isColumnWinning(int x) {
+    CellState firstCellState = _field.getCellByCoordinates({x, 0}).state;
+    if (firstCellState == CellState::EMPTY) {
+        return false;
+    }
+
+    for (int y = 1; y < FIELD_HEIGHT; ++y) {
+        if (_field.getCellByCoordinates({x, y}).state != firstCellState) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool FieldInteractor::_checkMainDiagonalForWin() {
+    CellState firstDiagonalState = _field.getCellByCoordinates({0, 0}).state;
+    if (firstDiagonalState == CellState::EMPTY) {
+        return false;
+    }
+
+    for (int i = 1; i < std::min(FIELD_WIDTH, FIELD_HEIGHT); ++i) {
+        if (_field.getCellByCoordinates({i, i}).state != firstDiagonalState) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool FieldInteractor::_checkSecondaryDiagonalForWin() {
+    CellState secondDiagonalState = _field.getCellByCoordinates({0, FIELD_HEIGHT - 1}).state;
+    if (secondDiagonalState == CellState::EMPTY) {
+        return false;
+    }
+
+    for (int i = 1; i < std::min(FIELD_WIDTH, FIELD_HEIGHT); ++i) {
+        if (_field.getCellByCoordinates({i, FIELD_HEIGHT - 1 - i}).state != secondDiagonalState) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 bool FieldInteractor::checkDrawPosition() {
