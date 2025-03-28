@@ -1,8 +1,8 @@
 #include "Core.hpp"
 
 
-Core::Core(FieldInteractor &field) 
-    : _field(field)
+Core::Core(FieldInteractor &field, Bot &bot) 
+    : _field(field), _bot(bot)
 {}
 
 void Core::userStep(Coordinates coordinates) {
@@ -14,15 +14,7 @@ void Core::userStep(Coordinates coordinates) {
 }
 
 void Core::computerStep() {
-    auto emptyCells = _field.getEmptyCellsCoordinates();
-
-    if (emptyCells.empty()) {
-        throw std::runtime_error("Нет пустых клеток");
-    }
-
-    int randomIndex = utils::getRandomNumberBetween(0, emptyCells.size() - 1);
-    auto randomCellCoordinates = emptyCells[randomIndex];
-    _field.setZero(randomCellCoordinates);
+    _bot.makeStep(_field);
 }
 
 bool Core::checkWinPosition() {
