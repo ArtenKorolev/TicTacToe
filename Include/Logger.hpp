@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "File.hpp"
+#include "Utils.hpp"
 
 
 class FileLogger {
