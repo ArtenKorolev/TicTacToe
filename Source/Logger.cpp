@@ -9,7 +9,7 @@ void FileLogger::log(const std::string &message) {
     FileWriter fileWriter;
     std::string currentDate = utils::getCurrentDateTime();
     std::string logString = "[" + currentDate + "] " + message + "\n";
-    fileWriter.appendToFile(_logFile, message);
+    fileWriter.appendToFile(_logFile, logString);
 }
 
 ConsoleLogger::ConsoleLogger(const File &logFile) 
