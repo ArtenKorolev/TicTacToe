@@ -3,6 +3,7 @@
 
 #include "IOInterface.hpp"
 #include "Constants.hpp"
+#include "Bot.hpp"
 #include <iostream>
 
 
@@ -15,6 +16,7 @@ private:
     std::string _getCellCharByState(CellState state);
     void _userStep();
     Core _core;
+    Bot _bot;
 };
 
 

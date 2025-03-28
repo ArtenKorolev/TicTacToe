@@ -2,7 +2,7 @@
 
 
 ConsoleInterface::ConsoleInterface(FieldInteractor &field)
-    : IOInterface(field), _core(Core(field))
+    : IOInterface(field), _bot(Bot()), _core(Core(field, _bot))
 {}
 
 void ConsoleInterface::gameLoop() {
