@@ -1,7 +1,7 @@
 #include "File.hpp"
 
 
-void FileWriter::writeFile(const File &file, const std::string &content) {
+void FileWriter::appendToFile(const File &file, const std::string &content) {
     std::ofstream outFile(file.path + file.name, std::ios::app);
 
     if (!outFile) {
