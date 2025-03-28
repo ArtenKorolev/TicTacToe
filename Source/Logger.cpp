@@ -12,10 +12,6 @@ void FileLogger::log(const std::string &message) {
     fileWriter.appendToFile(_logFile, logString);
 }
 
-ConsoleLogger::ConsoleLogger(const File &logFile) 
-    : _logFile(logFile)
-{}
-
 void ConsoleLogger::log(const std::string &message) {
     std::cout << message << '\n';
 }
