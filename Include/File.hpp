@@ -6,14 +6,13 @@
 
 
 struct File {
-    std::string name;
-    std::string path;
+    std::string name, path;
 };
 
 
 class FileWriter {
 public:
-    void writeFile(const File &file, const std::string &content);
+    void appendToFile(const File &file, const std::string &content);
 };
 
 
