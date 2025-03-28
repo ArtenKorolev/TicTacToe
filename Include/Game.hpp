@@ -2,6 +2,7 @@
 #define GAME_HPP
 
 #include "IOInterfaceFactory.hpp"
+#include "Logger.hpp"
 #include <memory>
 
 
