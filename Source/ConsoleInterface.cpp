@@ -6,26 +6,32 @@ ConsoleInterface::ConsoleInterface(FieldInteractor &field)
 {}
 
 void ConsoleInterface::gameLoop() {
+    FileLogger fileLogger(File{"game_log.txt", "./"});
+
     while (true) {
         _printField();
         _userStep();
         if (_core.checkWinPosition()) {
             _printField();
             std::cout << "Вы победили!" << std::endl;
+            fileLogger.log("Победа игрока!");
             break;
         }
         if (_core.checkDrawPosition()) {
             _printField();
             std::cout << "Ничья!" << std::endl;
+            fileLogger.log("Ничья!");
             break;
         }
         _core.computerStep();
         if (_core.checkWinPosition()) {
             _printField();
             std::cout << "Вы проиграли!" << std::endl;
+            fileLogger.log("Победа бота!");
             break;
         }
     }
+    
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cin.get();
 }

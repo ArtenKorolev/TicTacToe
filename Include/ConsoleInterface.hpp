@@ -3,6 +3,7 @@
 
 #include "IOInterface.hpp"
 #include "Constants.hpp"
+#include "Logger.hpp"
 #include "Bot.hpp"
 #include <iostream>
 
