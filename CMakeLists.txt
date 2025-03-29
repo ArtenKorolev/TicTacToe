@@ -22,4 +22,6 @@ file(GLOB SOURCES
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
+set_target_properties(tic_tac_toe PROPERTIES LINK_FLAGS "-mwindows")
+
 target_link_libraries(tic_tac_toe PRIVATE sfml-graphics sfml-window sfml-system)
