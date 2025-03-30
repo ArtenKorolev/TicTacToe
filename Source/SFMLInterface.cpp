@@ -14,9 +14,11 @@ void SFMLInterface::gameLoop() {
     while(window.isOpen()) {
         _drawField(window); 
         window.display();
+
         while(window.pollEvent(event)) {
             _handleEvent(event, window);
         }
+
         window.clear(sf::Color::White); 
     }
 }
@@ -27,24 +29,27 @@ void SFMLInterface::_handleEvent(sf::Event &event, sf::Window &window) {
             window.close();
             break;
         case sf::Event::MouseButtonPressed:
+            bool playerMadeStep = false;
+
             if (event.mouseButton.button == sf::Mouse::Left && !_hasWinner) {
-                _handleUserStep(event);
+                playerMadeStep = _handleUserStep(event);
             }
-            if (!_hasWinner) {
+            if (!_hasWinner && playerMadeStep) {
                 _handleComputerStep();
             }
             break;
     }
 }
 
-void SFMLInterface::_handleUserStep(sf::Event &event) {
-    if (!_tryToMakeUserStep(event)) return;
-    _checkForWinOrDraw("Игрок");
-}
+bool SFMLInterface::_handleUserStep(sf::Event &event) {
+    bool userMadeStepSuccessfully = _tryToMakeUserStep(event);
 
-void SFMLInterface::_handleComputerStep() {
-    _core.computerStep();
-    _checkForWinOrDraw("Компьютер");
+    if (!userMadeStepSuccessfully) {
+        return false;
+    }
+    
+    _checkForWinOrDraw("Игрок");
+    return true;
 }
 
 bool SFMLInterface::_tryToMakeUserStep(sf::Event &event) {
@@ -56,6 +61,11 @@ bool SFMLInterface::_tryToMakeUserStep(sf::Event &event) {
         ERROR_FILE_LOGGER.log(e.what());
         return false; 
     }
+}
+
+void SFMLInterface::_handleComputerStep() {
+    _core.computerStep();
+    _checkForWinOrDraw("Компьютер");
 }
 
 Coordinates SFMLInterface::_getCoordinatesFromEvent(sf::Event &event) {
@@ -81,24 +91,26 @@ bool SFMLInterface::_checkForWinOrDraw(const std::string &player) {
 void SFMLInterface::_drawField(sf::RenderWindow &window) {
     for (int i = 0; i < FIELD_HEIGHT; ++i) {
         for (int j = 0; j < FIELD_WIDTH; ++j) {
-            _drawCell(window, i, j);
+            _drawCell(window, {i, j});
         }
     }
 }
 
-void SFMLInterface::_drawCell(sf::RenderWindow &window, int x, int y) {
-    _drawEmptyCell(window, x, y);
-    CellState cellState = _field.getCellByCoordinates({x, y}).state;
+void SFMLInterface::_drawCell(sf::RenderWindow &window, Coordinates coords) {
+    _drawEmptyCell(window, coords);
+    CellState cellState = _field.getCellByCoordinates(coords).state;
 
     if (cellState == CellState::CROSS) {
-        _drawCross(window, x, y); 
+        _drawCross(window, coords); 
     } 
     else if (cellState == CellState::ZERO) {
-        _drawZero(window, x, y); 
+        _drawZero(window, coords); 
     }
 }
 
-void SFMLInterface::_drawEmptyCell(sf::RenderWindow &window, int x, int y) {
+void SFMLInterface::_drawEmptyCell(sf::RenderWindow &window, Coordinates coords) {
+    int x = coords.x, y = coords.y;
+
     sf::RectangleShape cell(sf::Vector2f(CELL_SIZE, CELL_SIZE));
     cell.setPosition(x * CELL_SIZE, y * CELL_SIZE);
     cell.setFillColor(sf::Color::White);
@@ -107,7 +119,9 @@ void SFMLInterface::_drawEmptyCell(sf::RenderWindow &window, int x, int y) {
     window.draw(cell);
 }
 
-void SFMLInterface::_drawCross(sf::RenderWindow &window, int x, int y) {
+void SFMLInterface::_drawCross(sf::RenderWindow &window, Coordinates coords) {
+    int x = coords.x, y = coords.y;
+
     sf::RectangleShape line1(sf::Vector2f(CELL_SIZE * 0.7f, CELL_SIZE * 0.1f));
     line1.setFillColor(sf::Color::Red);
     line1.setOrigin(line1.getSize().x / 2, line1.getSize().y / 2);
@@ -124,7 +138,9 @@ void SFMLInterface::_drawCross(sf::RenderWindow &window, int x, int y) {
     window.draw(line2);
 }
 
-void SFMLInterface::_drawZero(sf::RenderWindow &window, int x, int y) {
+void SFMLInterface::_drawZero(sf::RenderWindow &window, Coordinates coords) {
+    int x = coords.x, y = coords.y;
+
     sf::CircleShape outerCircle(CELL_SIZE / 2.5f);
     outerCircle.setFillColor(sf::Color::White);
     outerCircle.setOutlineThickness(5);
