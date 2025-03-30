@@ -2,7 +2,7 @@
 #define GAME_HPP
 
 #include "IOInterfaceFactory.hpp"
-#include "Globals.hpp"
+#include "GlobalObjects.hpp"
 #include <memory>
 
 

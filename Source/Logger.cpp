@@ -7,9 +7,12 @@ FileLogger::FileLogger(const File &logFile)
 
 void FileLogger::log(const std::string &message) const {
     FileWriter fileWriter;
+    fileWriter.appendToFile(_logFile, _getLogStringByMessage(message));
+}
+
+std::string FileLogger::_getLogStringByMessage(const std::string &message) const {
     std::string currentDate = utils::getCurrentDateTime();
     std::string logString = "[" + currentDate + "] " + message + "\n";
-    fileWriter.appendToFile(_logFile, logString);
 }
 
 void ConsoleLogger::log(const std::string &message) const {

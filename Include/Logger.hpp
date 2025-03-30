@@ -11,6 +11,7 @@ public:
     FileLogger(const File &logFile);
     void log(const std::string &message) const;
 private:
+    std::string _getLogStringByMessage(const std::string &message) const ;
     const File _logFile;
 };
 

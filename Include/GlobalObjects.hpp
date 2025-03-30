@@ -4,8 +4,8 @@
 #include "Logger.hpp"
 
 
-const File GAME_LOG_FILE{"log.txt", "./"};
-const File ERROR_LOG_FILE{"errors.txt", "./"};
+const File GAME_LOG_FILE{"TicTacToe_logs.txt", "./"};
+const File ERROR_LOG_FILE{"TicTacToe_errors.txt", "./"};
 
 const ConsoleLogger GAME_CONSOLE_LOGGER;
 const FileLogger GAME_FILE_LOGGER(GAME_LOG_FILE);
