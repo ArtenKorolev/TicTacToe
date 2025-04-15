@@ -11,7 +11,7 @@ public:
 };
 
 
-class EasyBot : public Bot{
+class EasyBot : public Bot { // Easy bot that makes steps randomly
 public:
     void makeStep(FieldInteractor &field);
 };

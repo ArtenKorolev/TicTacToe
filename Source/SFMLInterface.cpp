@@ -7,12 +7,13 @@ SFMLInterface::SFMLInterface(FieldInteractor &field)
 
 void SFMLInterface::gameLoop() {
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_WIDTH), "Tic Tac Toe Game!");
+    SFMLDrawer drawer(window);
     window.setFramerateLimit(60); 
 
     sf::Event event;
 
     while(window.isOpen()) {
-        _drawField(window); 
+        drawer.drawField(_field); 
         window.display();
 
         while(window.pollEvent(event)) {
@@ -86,73 +87,4 @@ bool SFMLInterface::_checkForWinOrDraw(const std::string &player) {
     }
 
     return false;
-}
-
-void SFMLInterface::_drawField(sf::RenderWindow &window) {
-    for (int i = 0; i < FIELD_HEIGHT; ++i) {
-        for (int j = 0; j < FIELD_WIDTH; ++j) {
-            _drawCell(window, {i, j});
-        }
-    }
-}
-
-void SFMLInterface::_drawCell(sf::RenderWindow &window, Coordinates coords) {
-    _drawEmptyCell(window, coords);
-    CellState cellState = _field.getCellByCoordinates(coords).state;
-
-    if (cellState == CellState::CROSS) {
-        _drawCross(window, coords); 
-    } 
-    else if (cellState == CellState::ZERO) {
-        _drawZero(window, coords); 
-    }
-}
-
-void SFMLInterface::_drawEmptyCell(sf::RenderWindow &window, Coordinates coords) {
-    int x = coords.x, y = coords.y;
-
-    sf::RectangleShape cell(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-    cell.setPosition(static_cast<float>(x) * CELL_SIZE, static_cast<float>(y) * CELL_SIZE);
-    cell.setFillColor(sf::Color::White);
-    cell.setOutlineThickness(1);
-    cell.setOutlineColor(sf::Color::Black);
-    window.draw(cell);
-}
-
-void SFMLInterface::_drawCross(sf::RenderWindow &window, Coordinates coords) {
-    int x = coords.x, y = coords.y;
-
-    sf::RectangleShape line1(sf::Vector2f(CELL_SIZE * 0.7f, CELL_SIZE * 0.1f));
-    line1.setFillColor(sf::Color::Red);
-    line1.setOrigin(line1.getSize().x / 2, line1.getSize().y / 2);
-    line1.setPosition(x * CELL_SIZE + CELL_SIZE / 2, y * CELL_SIZE + CELL_SIZE / 2);
-    line1.setRotation(45); // Поворот первой линии
-
-    sf::RectangleShape line2(sf::Vector2f(CELL_SIZE * 0.7f, CELL_SIZE * 0.1f));
-    line2.setFillColor(sf::Color::Red);
-    line2.setOrigin(line2.getSize().x / 2, line2.getSize().y / 2);
-    line2.setPosition(x * CELL_SIZE + CELL_SIZE / 2, y * CELL_SIZE + CELL_SIZE / 2);
-    line2.setRotation(-45); // Поворот второй линии
-
-    window.draw(line1);
-    window.draw(line2);
-}
-
-void SFMLInterface::_drawZero(sf::RenderWindow &window, Coordinates coords) {
-    int x = coords.x, y = coords.y;
-
-    sf::CircleShape outerCircle(CELL_SIZE / 2.5f);
-    outerCircle.setFillColor(sf::Color::White);
-    outerCircle.setOutlineThickness(5);
-    outerCircle.setOutlineColor(sf::Color::Blue);
-    outerCircle.setOrigin(outerCircle.getRadius(), outerCircle.getRadius());
-    outerCircle.setPosition(x * CELL_SIZE + CELL_SIZE / 2, y * CELL_SIZE + CELL_SIZE / 2);
-
-    sf::CircleShape innerCircle(CELL_SIZE / 4.0f);
-    innerCircle.setFillColor(sf::Color::White);
-    innerCircle.setOrigin(innerCircle.getRadius(), innerCircle.getRadius());
-    innerCircle.setPosition(x * CELL_SIZE + CELL_SIZE / 2, y * CELL_SIZE + CELL_SIZE / 2);
-
-    window.draw(outerCircle);
-    window.draw(innerCircle);
 }

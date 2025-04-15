@@ -8,6 +8,7 @@
 #include "GlobalObjects.hpp"
 #include "IOInterface.hpp"
 #include "BotFactory.hpp"
+#include "SFMLDrawer.hpp"
 #include "Bot.hpp"
 
 
@@ -23,11 +24,6 @@ private:
     bool _tryToMakeUserStep(sf::Event &event);
     Coordinates _getCoordinatesFromEvent(sf::Event &event);
     bool _checkForWinOrDraw(const std::string &player);
-    void _drawField(sf::RenderWindow &window);
-    void _drawCell(sf::RenderWindow &window, Coordinates coords);
-    void _drawEmptyCell(sf::RenderWindow &window, Coordinates coords);
-    void _drawCross(sf::RenderWindow &window, Coordinates coords);
-    void _drawZero(sf::RenderWindow &window, Coordinates coords);
     Core _core;
     bool _hasWinner = false;
 };
