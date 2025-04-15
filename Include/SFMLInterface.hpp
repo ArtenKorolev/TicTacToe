@@ -7,6 +7,7 @@
 #include "Constants.hpp"
 #include "GlobalObjects.hpp"
 #include "IOInterface.hpp"
+#include "BotFactory.hpp"
 #include "Bot.hpp"
 
 
@@ -29,7 +30,6 @@ private:
     void _drawZero(sf::RenderWindow &window, Coordinates coords);
     Core _core;
     bool _hasWinner = false;
-    Bot _bot;
 };
 
 

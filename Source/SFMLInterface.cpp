@@ -2,7 +2,7 @@
 
 
 SFMLInterface::SFMLInterface(FieldInteractor &field)
-    : IOInterface(field), _bot(Bot()), _core(Core(_field, _bot))
+    : IOInterface(field), _core(Core(_field, BotFactory::getBot()))
 {}
 
 void SFMLInterface::gameLoop() {
@@ -112,7 +112,7 @@ void SFMLInterface::_drawEmptyCell(sf::RenderWindow &window, Coordinates coords)
     int x = coords.x, y = coords.y;
 
     sf::RectangleShape cell(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-    cell.setPosition(x * CELL_SIZE, y * CELL_SIZE);
+    cell.setPosition(static_cast<float>(x) * CELL_SIZE, static_cast<float>(y) * CELL_SIZE);
     cell.setFillColor(sf::Color::White);
     cell.setOutlineThickness(1);
     cell.setOutlineColor(sf::Color::Black);

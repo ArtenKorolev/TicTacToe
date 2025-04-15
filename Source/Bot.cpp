@@ -1,7 +1,7 @@
 #include "Bot.hpp"
 
 
-void Bot::makeStep(FieldInteractor &field) {
+void EasyBot::makeStep(FieldInteractor &field) {
     auto emptyCells = field.getEmptyCellsCoordinates();
 
     if (emptyCells.empty()) {

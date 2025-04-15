@@ -1,8 +1,8 @@
 #include "Core.hpp"
 
 
-Core::Core(FieldInteractor &field, Bot &bot) 
-    : _field(field), _bot(bot)
+Core::Core(FieldInteractor &field, std::unique_ptr<Bot> bot) 
+    : _field(field), _bot(std::move(bot))
 {}
 
 void Core::userStep(Coordinates coordinates) {
@@ -14,7 +14,7 @@ void Core::userStep(Coordinates coordinates) {
 }
 
 void Core::computerStep() {
-    _bot.makeStep(_field);
+    _bot->makeStep(_field);
 }
 
 bool Core::checkWinPosition() {

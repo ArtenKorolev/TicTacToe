@@ -7,6 +7,12 @@
 
 class Bot {
 public:
+    virtual void makeStep(FieldInteractor &field) = 0;
+};
+
+
+class EasyBot : public Bot{
+public:
     void makeStep(FieldInteractor &field);
 };
 
