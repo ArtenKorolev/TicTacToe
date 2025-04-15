@@ -19,8 +19,7 @@ public:
     void gameLoop() override;
 private:
     void _handleEvent(sf::Event &event, sf::Window &window);
-    bool _handleUserStep(sf::Event &event);
-    void _handleComputerStep();
+    void _handleMouseButtonPressed(sf::Event &event);
     bool _tryToMakeUserStep(sf::Event &event);
     Coordinates _getCoordinatesFromEvent(sf::Event &event);
     bool _checkForWinOrDraw(const std::string &player);
