@@ -18,7 +18,7 @@ public:
     ~SFMLInterface() override = default;
     void gameLoop() override;
 private:
-    void _handleEvent(sf::Event &event, sf::Window &window);
+    void _handleEvent(sf::Event &event, sf::RenderWindow &window);
     void _handleMouseButtonPressed(sf::Event &event);
     bool _tryToMakeUserStep(sf::Event &event);
     Coordinates _getCoordinatesFromEvent(sf::Event &event);
